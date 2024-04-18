@@ -205,16 +205,14 @@
           <div class="flex flex-col gap-8">
             <div class="flex flex-row justify-between items-center">
               <div>
-                <h1 class="text-3xl font-bold leading-loose">
-                  Penerimaan pakan
-                </h1>
-                <p>Masukan detail Penerimaan pakan</p>
+                <h1 class="text-3xl font-bold leading-loose">{{ title }}</h1>
+                <p>Masukan detail {{ title }}</p>
               </div>
 
               <!-- button tambah -->
               <div>
                 <a
-                  href="/form-penerimaan.html"
+                  href="/form-riwayat"
                   class="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
                 >
                   Tambah
@@ -225,40 +223,38 @@
             <table id="myTable" class="display">
               <thead>
                 <tr>
-                  <th>Kode</th>
                   <th>Tanggal</th>
-                  <th>Jenis</th>
-                  <th>Jumlah</th>
-                  <th>Kondisi</th>
-                  <th>Sumber</th>
+                  <th>Model Regresi</th>
+                  <th>Hari mulai</th>
+                  <th>Jumlah hari</th>
                   <th>Action</th>
                 </tr>
               </thead>
               <tbody>
+                {% for item in data %}
                 <tr>
-                  <td>3345</td>
-                  <td>18, Januari 2023</td>
-                  <td>Pupuk</td>
-                  <td>20</td>
-                  <td>Baik</td>
-                  <td>Organik</td>
+                  <td>{{ item[1] }}</td>
+                  <td>{{ item[2] }}</td>
+                  <td>{{ item[3] }}</td>
+                  <td>{{ item[4] }}</td>
                   <td>
                     <div class="flex gap-2">
                       <a
                         class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-3 py-2 text-center"
-                        href="#"
+                        href="/form-riwayat/{{ item[0] }}"
                       >
                         Edit
                       </a>
 
                       <a
-                        href="#"
+                        href="/delete-riwayat/{{ item[0] }}"
                         class="text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-3 py-2 text-center"
                         >Delete</a
                       >
                     </div>
                   </td>
                 </tr>
+                {% endfor %}
               </tbody>
             </table>
           </div>

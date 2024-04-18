@@ -202,7 +202,7 @@
           <div class="grid grid-cols-1 sm:grid-cols-2">
             <div>
               <h1 class="text-3xl font-bold leading-loose">{{title}}</h1>
-              <p>Masukan detail stok pakan</p>
+              <p>Masukan detail {{title}}</p>
             </div>
             <div class="shadow rounded-lg px-4 py-6">
               <form
@@ -219,37 +219,23 @@
                 />
                 <input
                   type="text"
-                  placeholder="jenis pakan"
-                  name="jenis_pakan"
+                  placeholder="Model Regresi"
+                  name="model_regresi"
                   value="{{ data[0][2] if data is defined else '' }}"
                   class="py-2 px-3 outline-none border rounded-md"
                 />
                 <input
-                  type="number"
-                  placeholder="jumlah masuk"
-                  name="jumlah_masuk"
+                  type="date"
+                  placeholder="Hari mulai prediksi"
+                  name="hari_mulai_prediksi"
                   value="{{ data[0][3] if data is defined else '' }}"
                   class="py-2 px-3 outline-none border rounded-md"
                 />
                 <input
                   type="number"
-                  placeholder="jumlah penggunaan"
-                  name="jumlah_penggunaan"
+                  placeholder="Jumlah hari prediksi"
+                  name="jumlah_prediksi"
                   value="{{ data[0][4] if data is defined else '' }}"
-                  class="py-2 px-3 outline-none border rounded-md"
-                />
-                <input
-                  type="number"
-                  placeholder="total stok"
-                  name="total_stok"
-                  value="{{ data[0][5] if data is defined else '' }}"
-                  class="py-2 px-3 outline-none border rounded-md"
-                />
-                <input
-                  type="text"
-                  placeholder="kondisi stok"
-                  name="kondisi"
-                  value="{{ data[0][6] if data is defined else '' }}"
                   class="py-2 px-3 outline-none border rounded-md"
                 />
 

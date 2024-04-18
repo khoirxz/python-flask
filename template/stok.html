@@ -212,7 +212,7 @@
               <!-- button tambah -->
               <div>
                 <a
-                  href="/form-stok.html"
+                  href="/form-stok"
                   class="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
                 >
                   Tambah
@@ -223,40 +223,43 @@
             <table id="myTable" class="display">
               <thead>
                 <tr>
-                  <th>Kode</th>
                   <th>Tanggal</th>
                   <th>Jenis</th>
                   <th>Jumlah</th>
+                  <th>Penggunaan</th>
+                  <th>Total</th>
                   <th>Kondisi</th>
-                  <th>Sumber</th>
                   <th>Action</th>
                 </tr>
               </thead>
               <tbody>
+                {% for item in data %}
                 <tr>
-                  <td>3345</td>
-                  <td>18, Januari 2023</td>
-                  <td>Pupuk</td>
-                  <td>20</td>
-                  <td>Baik</td>
-                  <td>Organik</td>
+                  <td>{{ item[1] }}</td>
+                  <td>{{ item[2] }}</td>
+                  <td>{{ item[3] }}</td>
+                  <td>{{ item[4] }}</td>
+                  <td>{{ item[5] }}</td>
+                  <td>{{ item[6] }}</td>
                   <td>
                     <div class="flex gap-2">
                       <a
                         class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-3 py-2 text-center"
-                        href="/form-stok.html"
+                        href="/form-stok/{{ item[0] }}"
                       >
                         Edit
                       </a>
 
                       <a
-                        href="#"
+                        href="/delete-stok/{{ item[0] }}"
                         class="text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-3 py-2 text-center"
-                        >Delete</a
                       >
+                        Hapus
+                      </a>
                     </div>
                   </td>
                 </tr>
+                {% endfor %}
               </tbody>
             </table>
           </div>

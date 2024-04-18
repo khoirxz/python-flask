@@ -297,13 +297,155 @@ def delete_pembelian(id):
     return redirect(url_for('pembelian'))
 #! end router pembelian
 
+
+#! route stok pakan
+@app.route('/stok')
+def stok_pakan():
+    cur = mysql.connection.cursor()
+    cur.execute("SELECT * FROM `stok_pakan` ORDER BY tanggal DESC")
+    data = cur.fetchall()
+
+    return render_template('stok.html', data=data)
+
+# router tambah stok pakan
+@app.route('/form-stok')
+def form_stok():
+    return render_template('form-stok.html', title='Tambah Stok pakan', action='/tambah-stok')
+
+# route update stok pakan
+@app.route('/form-stok/<string:id>')
+def form_stok_update(id):
+    cur = mysql.connection.cursor()
+    cur.execute("SELECT * FROM stok_pakan WHERE id = %s", (id,))
+    data = cur.fetchall()
+    return render_template('form-stok.html', title='Update Stok pakan', data=data, action='/update-stok', id=id)
+
+# route action tambah stok pakan
+@app.route('/tambah-stok', methods=['POST'])
+def tambah_stok():
+    if request.method == 'POST':
+        tanggal = request.form['tanggal']
+        jenis_pakan = request.form['jenis_pakan']
+        jumlah_masuk = request.form['jumlah_masuk']
+        jumlah_penggunaan = request.form['jumlah_penggunaan']
+        total_stok = request.form['total_stok']
+        kondisi = request.form['kondisi']
+
+        cur = mysql.connection.cursor()
+        cur.execute("INSERT INTO stok_pakan (tanggal, jenisPakan, jumlahPakanMasuk, jumlahPenggunaanPakan, totalStokTersedia, kondisiStokPakan) VALUES (%s, %s, %s, %s, %s, %s)", (tanggal, jenis_pakan, jumlah_masuk, jumlah_penggunaan, total_stok, kondisi))
+
+        mysql.connection.commit()
+        return redirect(url_for('stok_pakan'))
+    else:
+        abort(400)  # The browser (or proxy) sent a request that this server could not understand.
+    return render_template('form-stok.html')
+
+#route action mengupdate stok pakan
+@app.route('/update-stok/<string:id>', methods=['POST'])
+def update_stok(id):
+    if request.method == 'POST':
+        tanggal = request.form['tanggal']
+        jenis_pakan = request.form['jenis_pakan']
+        jumlah_masuk = request.form['jumlah_masuk']
+        jumlah_penggunaan = request.form['jumlah_penggunaan']
+        total_stok = request.form['total_stok']
+        kondisi = request.form['kondisi']
+
+        cur = mysql.connection.cursor()
+        cur.execute(""" UPDATE stok_pakan SET
+            tanggal = %s,
+            jenisPakan = %s,
+            jumlahPakanMasuk = %s,
+            jumlahPenggunaanPakan = %s,
+            totalStokTersedia = %s,
+            kondisiStokPakan = %s
+            WHERE id = %s
+        """, (tanggal, jenis_pakan, jumlah_masuk, jumlah_penggunaan, total_stok, kondisi, id))
+
+        mysql.connection.commit()
+        return redirect(url_for('stok_pakan'))
+    else:
+        abort(400)  # The browser (or proxy) sent a request that this server could not understand.
+    return render_template('form-stok.html')
+
+# route actiom menghapus data stok pakan
+@app.route('/delete-stok/<string:id>')
+def delete_stok(id):
+    cur = mysql.connection.cursor()
+    cur.execute("DELETE FROM stok_pakan WHERE id = {0}".format(id))
+    mysql.connection.commit()
+    return redirect(url_for('stok_pakan'))
+
+#! end route stok pakan
+
+#! route riwayat
+# route riwayat
 @app.route('/riwayat')
 def riwayat():
-    return render_template('riwayat.html')
+    cur = mysql.connection.cursor()
+    cur.execute("SELECT * FROM riwayat")
+    data = cur.fetchall()
 
-@app.route('/stok')
-def stok():
-    return render_template('stok.html')
+    return render_template('riwayat.html', data=data)
+
+# route tambah riwayat
+@app.route('/form-riwayat')
+def form_riwayat():
+    return render_template('form-riwayat.html', title='Tambah riwayat', action='/tambah-riwayat')
+
+# route update riwayat
+@app.route('/form-riwayat/<string:id>')
+def form_riwayat_update(id):
+    cur = mysql.connection.cursor()
+    cur.execute("SELECT * FROM riwayat WHERE id = %s", (id,))
+    data = cur.fetchall()
+    return render_template('form-riwayat.html', title='Update Riwayat pakan', data=data, action='/update-riwayat', id=id)
+
+# route action tambah riwayat
+@app.route('/tambah-riwayat', methods=['POST'])
+def tambah_riwayat():
+    if request.method == 'POST':
+        tanggal = request.form['tanggal']
+        model_regresi = request.form['model_regresi']
+        hari_mulai_prediksi = request.form['hari_mulai_prediksi']
+        jumlah_prediksi = request.form['jumlah_prediksi']
+
+        cur = mysql.connection.cursor()
+        cur.execute("INSERT INTO riwayat (tanggal, modelRegresi, hariMulaiPrediksi, jumlahHariDiprediksi) VALUES (%s, %s, %s, %s)", (tanggal, model_regresi, hari_mulai_prediksi, jumlah_prediksi,))
+
+        mysql.connection.commit()
+        return redirect(url_for('riwayat'))
+    else:
+        abort(400)  # The browser (or proxy) sent a request that this server could not understand.
+    return render_template('form-riwayat.html')
+
+# route action mengupdate riwayat
+@app.route('/update-riwayat/<string:id>', methods=['POST'])
+def update_riwayat(id):
+    if request.method == 'POST':
+        tanggal = request.form['tanggal']
+        model_regresi = request.form['model_regresi']
+        hari_mulai_prediksi = request.form['hari_mulai_prediksi']
+        jumlah_prediksi = request.form['jumlah_prediksi']
+
+        cur = mysql.connection.cursor()
+        cur.execute("UPDATE riwayat SET tanggal=%s, modelRegresi=%s, hariMulaiPrediksi=%s, jumlahHariDiprediksi=%s WHERE id=%s", (tanggal, model_regresi, hari_mulai_prediksi, jumlah_prediksi, id))
+
+        mysql.connection.commit()
+        return redirect(url_for('riwayat'))
+    else:
+        abort(400)  # The browser (or proxy) sent a request that this server could not understand.
+    return render_template('form-riwayat.html')
+
+# route action menghapus riwayat
+@app.route('/delete-riwayat/<string:id>')
+def delete_riwayat(id):
+    cur = mysql.connection.cursor()
+    cur.execute("DELETE FROM riwayat WHERE id = {0}".format(id))
+    mysql.connection.commit()
+    return redirect(url_for('riwayat'))
+
+#! end route riwayat
 
 if __name__ == '__main__':
     app.run(debug=True)
