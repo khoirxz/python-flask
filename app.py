@@ -16,7 +16,15 @@ mysql = MySQL(app)
 
 @app.route('/')
 def index():
-    return render_template('index.html')
+    try:
+        cur = mysql.connection.cursor()
+        cur.execute("SELECT VERSION()")
+        data = cur.fetchone()
+        status = True
+    except:
+        status = False
+    return render_template('index.html', status=status)
+    
 
 @app.route('/check')
 def check():

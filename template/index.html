@@ -199,6 +199,15 @@
       <!-- content -->
       <div id="content" class="z-10 py-10 px-12">
         <div class="max-w-screen-xl m-auto container flex flex-col gap-6">
+          <div
+            class="{% if status %} bg-green-200 {% else %} bg-red-200 {% endif %} p-6 rounded-xl shadow"
+          >
+            <p class="text-sky-800">
+              {% if status %}Server running{% else %}Check database server{%
+              endif %}
+            </p>
+          </div>
+
           <!-- sigle card -->
           <div class="bg-sky-200 p-6 rounded-xl shadow">
             <h1 class="text-3xl font-bold text-sky-950 leading-loose">
@@ -212,7 +221,7 @@
             </p>
             <div class="mt-4">
               <a
-                href="check.html"
+                href="/check"
                 class="bg-sky-900 py-2 px-3 rounded-md text-white hover:bg-sky-700 shadow-md"
               >
                 Prekdiksi pakan

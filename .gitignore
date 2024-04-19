@@ -1,4 +1,7 @@
 __pycache__
+template/node_modules
+node_modules
+
 *.pyc
 
 *.pyc
