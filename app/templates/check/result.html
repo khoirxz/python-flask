@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dashboard</title>
+    {% include 'assets.html' %}
+  </head>
+  <body class="font-['Switzer'] relative min-h-full bg-white">
+    <!-- Navbar -->
+    {% include 'navbar.html' %}
+    <!-- End Navbar -->
+
+    <!--
+      transparant overlay ketika sidebar aktif
+    -->
+    <div
+      id="overlay"
+      class="fixed inset-0 bg-black/50 z-30 w-full h-full t-0 hidden"
+      aria-hidden="true"
+      tabindex="-1"
+      onclick="handleSidebar()"
+    ></div>
+
+    <div id="content-wrapper" class="relative">
+      <!-- Sidebar -->
+      {% include 'sidebar.html' %}
+      <!-- End Sidebar -->
+
+      <!-- content -->
+      <div id="content" class="z-10 py-10 px-12">
+        <div class="max-w-screen-xl m-auto container flex flex-col gap-6">
+          <div class="flex justify-center items-center">
+            <div class="max-w-lg w-full p-10 rounded-xl shadow-md border">
+              <h1 class="text-center font-bold text-2xl mb-4">
+                Hasil dari prediksi persediaan pakan ayam boiler
+              </h1>
+
+              {% for model, prediction_list in predictions.items() %}
+              <p>
+                Prediksi berdasarkan model:
+                <span class="font-semibold">{{ model }}</span>
+              </p>
+
+              <div class="my-5">
+                <table class="table-auto border-collapse w-full">
+                  <thead class="bg-gray-50">
+                    <tr>
+                      <th scope="col" class="px-4 py-2">Hari</th>
+                      <th scope="col" class="px-4 py-2">Prediksi (kg)</th>
+                    </tr>
+                  </thead>
+                  <tbody
+                    class="divide-y divide-gray-100 border-t border-gray-100 text-center"
+                  >
+                    {% for day, prediction in prediction_list %}
+                    <tr>
+                      <td>{{ day }}</td>
+                      <td>{{ prediction }} kg</td>
+                    </tr>
+                    {% endfor %}
+                  </tbody>
+                </table>
+              </div>
+              {% endfor %}
+
+              <div class="my-3 flex flex-col gap-3">
+                <div>
+                  <p>Total prediksi model 1:</p>
+                  <ul class="list-decimal list-inside">
+                    {% for model, total_prediction in total_predictions.items()
+                    %}
+                    <li class="font-semibold text-green-500">
+                      {{ model }}: {{ total_prediction }} kg
+                    </li>
+                    {% endfor %}
+                  </ul>
+                </div>
+
+                <p>
+                  Rata-rata total prediksi keseluruahan :
+                  <span class="font-semibold text-yellow-500"
+                    >{{ grand_total_prediction }} kg</span
+                  >
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- end content -->
+    </div>
+
+    <!-- script and footer -->
+    {% include 'footer.html' %}
+  </body>
+</html>

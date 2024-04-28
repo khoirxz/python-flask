@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dashboard</title>
+    {% include 'assets.html' %}
+  </head>
+  <body class="font-['Switzer'] relative min-h-full bg-white">
+    <!-- Navbar -->
+    {% include 'navbar.html' %}
+    <!-- End Navbar -->
+
+    <!--
+      transparant overlay ketika sidebar aktif
+    -->
+    <div
+      id="overlay"
+      class="fixed inset-0 bg-black/50 z-30 w-full h-full t-0 hidden"
+      aria-hidden="true"
+      tabindex="-1"
+      onclick="handleSidebar()"
+    ></div>
+
+    <div id="content-wrapper" class="relative">
+      <!-- Sidebar -->
+      {% include 'sidebar.html' %}
+      <!-- End Sidebar -->
+
+      <!-- content -->
+      <div id="content" class="z-10 py-10 px-12">
+        <div class="max-w-screen-xl m-auto container flex flex-col gap-6">
+          <div
+            class="{% if status %} bg-emerald-200 {% else %} bg-red-200 {% endif %} p-6 rounded-xl shadow"
+          >
+            <p class="text-sky-800">
+              {% if status %}Server running on mysql {{ version['VERSION()']
+              }}{% else %}Check database server{% endif %}
+            </p>
+          </div>
+
+          <!-- sigle card -->
+          <div class="bg-sky-200 p-6 rounded-xl shadow">
+            <h1 class="text-3xl font-bold text-sky-950 leading-loose">
+              Selamat datang {{ user }}!
+            </h1>
+            <p class="text-sky-800">
+              Lorem ipsum, dolor sit amet consectetur adipisicing elit.
+              Consequuntur sed repudiandae earum culpa, quaerat molestiae
+              consequatur repellendus vero necessitatibus labore et esse
+              repellat magni quos atque a reiciendis enim voluptatem.
+            </p>
+            <div class="mt-4">
+              <a
+                href="/check"
+                class="bg-sky-900 py-2 px-3 rounded-md text-white hover:bg-sky-700 shadow-md"
+              >
+                Prekdiksi pakan
+              </a>
+            </div>
+          </div>
+          <!-- end sigle card -->
+
+          <div class="grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-3">
+            <div class="bg-emerald-200 p-6 rounded-xl shadow">
+              <p class="text-emerald-950">Total ayam</p>
+              <p class="text-emerald-800 text-3xl font-bold leading-loose">
+                1.443
+              </p>
+            </div>
+            <div class="bg-indigo-200 p-6 rounded-xl shadow">
+              <p class="text-indigo-950">Total ayam</p>
+              <p class="text-indigo-800 text-3xl font-bold leading-loose">
+                1.443
+              </p>
+            </div>
+            <div class="bg-red-200 p-6 rounded-xl shadow">
+              <p class="text-red-950">Total ayam</p>
+              <p class="text-red-800 text-3xl font-bold leading-loose">1.443</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- end content -->
+    </div>
+
+    <!-- script and footer -->
+    {% include 'footer.html' %}
+  </body>
+</html>

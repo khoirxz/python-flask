@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Waktu pembuatan: 18 Apr 2024 pada 18.01
+-- Waktu pembuatan: 28 Apr 2024 pada 19.07
 -- Versi server: 5.7.33
 -- Versi PHP: 7.4.19
 
@@ -41,7 +41,7 @@ CREATE TABLE `pembelian_pakan` (
 --
 
 INSERT INTO `pembelian_pakan` (`id`, `tanggal`, `namaPakan`, `supplier`, `item`, `jumlahPakan`) VALUES
-(1, '2024-04-05', 'Sentrat', 'Toko indah', 'bagus', 30);
+(2, '2024-04-24', 'sentrat', 'Mas adi', 'bagus', 111);
 
 -- --------------------------------------------------------
 
@@ -69,9 +69,9 @@ INSERT INTO `penerimaan_pakan` (`id`, `tanggal`, `kodePakan`, `jenisPakan`, `jum
 (3, '2024-04-05', 'D335', 'organik', 20, 'Baik', 'bagus'),
 (4, '2024-04-05', 'g44', 'organik', 2, 'baik', 'bagus'),
 (5, '2024-04-04', 'g46', 'organik', 99, 'baik', 'bagus'),
-(7, '2024-04-03', 'D333', 'Sintetis', 20, 'Baik', 'Stok baru'),
 (8, '2024-04-06', 'g44', 'organik', 2, 'baik', 'Stok lama'),
-(9, '2024-04-07', 'g46', 'organik', 5, 'baik', 'bagus');
+(9, '2024-04-07', 'g46', 'organik', 5, 'baik', 'bagus'),
+(10, '2024-04-22', 'g70', 'organik', 78, 'baik', 'Ordal');
 
 -- --------------------------------------------------------
 
@@ -95,9 +95,9 @@ CREATE TABLE `penggunaan_pakan` (
 
 INSERT INTO `penggunaan_pakan` (`id`, `tanggal`, `jenisPakan`, `nomorKandang`, `pagi`, `sore`, `total`) VALUES
 (1, '2024-04-13', 'organik', '12', 20, 19, 39),
-(3, '2024-04-06', 'Organik', '11', 0, 4, 4),
 (4, '2024-04-06', 'Organik', '11', 1, 1, 1),
-(5, '2024-04-06', 'Organik', '11', 1, 1, 1);
+(5, '2024-04-06', 'Organik', '11', 1, 1, 1),
+(6, '2024-04-24', 'Organik', '12', 111, 121, 19);
 
 -- --------------------------------------------------------
 
@@ -118,7 +118,7 @@ CREATE TABLE `riwayat` (
 --
 
 INSERT INTO `riwayat` (`id`, `tanggal`, `modelRegresi`, `hariMulaiPrediksi`, `jumlahHariDiprediksi`) VALUES
-(2, '2024-04-19', '12', '2024-04-20', 12);
+(3, '2024-04-28', '1', '2024-04-30', 12);
 
 -- --------------------------------------------------------
 
@@ -141,9 +141,29 @@ CREATE TABLE `stok_pakan` (
 --
 
 INSERT INTO `stok_pakan` (`id`, `tanggal`, `jenisPakan`, `jumlahPakanMasuk`, `jumlahPenggunaanPakan`, `totalStokTersedia`, `kondisiStokPakan`) VALUES
-(1, '2024-04-17', 'organik', 31, 10, 21, 'Baik'),
 (2, '2024-04-18', 'oganik', 31, 10, 21, 'Baik'),
-(4, '2024-04-20', 'Organik', 2, 1, 2, 'baik');
+(4, '2024-04-20', 'Organik', 2, 1, 2, 'baik'),
+(5, '2024-04-27', 'Organik', 12, 10, 19, 'baik');
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `user`
+--
+
+CREATE TABLE `user` (
+  `id` int(11) NOT NULL,
+  `username` varchar(50) NOT NULL,
+  `email` varchar(100) NOT NULL,
+  `password` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data untuk tabel `user`
+--
+
+INSERT INTO `user` (`id`, `username`, `email`, `password`) VALUES
+(3, 'somat', 'somat@mail.com', 'gAAAAABmLfZyQmcRgEioJUpumMlwc-ANzR__Y8FPkmEJr0Fu6Z1P5mjR62m5BhUIsf4cYrSnYltExOWI8dxey22iIU4PdPmyAg==');
 
 --
 -- Indexes for dumped tables
@@ -180,6 +200,12 @@ ALTER TABLE `stok_pakan`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indeks untuk tabel `user`
+--
+ALTER TABLE `user`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- AUTO_INCREMENT untuk tabel yang dibuang
 --
 
@@ -187,30 +213,36 @@ ALTER TABLE `stok_pakan`
 -- AUTO_INCREMENT untuk tabel `pembelian_pakan`
 --
 ALTER TABLE `pembelian_pakan`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT untuk tabel `penerimaan_pakan`
 --
 ALTER TABLE `penerimaan_pakan`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT untuk tabel `penggunaan_pakan`
 --
 ALTER TABLE `penggunaan_pakan`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT untuk tabel `riwayat`
 --
 ALTER TABLE `riwayat`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT untuk tabel `stok_pakan`
 --
 ALTER TABLE `stok_pakan`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT untuk tabel `user`
+--
+ALTER TABLE `user`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 COMMIT;
 

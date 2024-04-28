@@ -1,0 +1,43 @@
+<script>
+  // ambil elemen sidebar
+  const sidebar = document.getElementById("sidebar");
+  const navbar = document.getElementById("navbar");
+  const content = document.getElementById("content-wrapper");
+
+  // mengatur jarak antara konten dan navbar
+  function contentNavbar() {
+    content.style.paddingTop = navbar.getBoundingClientRect().height + "px";
+  }
+
+  // mengatur tombol sidebar.
+  function handleSidebar() {
+    document.getElementById("overlay").classList.toggle("hidden");
+    // remove overflow scroll
+    document.body.classList.toggle("overflow-hidden");
+    // show sidebar with absolute top-0 left-0 position z-index to 50
+    sidebar.classList.toggle("hidden");
+    sidebar.classList.toggle("z-50");
+    sidebar.classList.toggle("absolute");
+    sidebar.classList.toggle("top-0");
+  }
+
+  // mengatur content wrapper ketika window resize kebawah 640px
+  function contentWraper() {
+    if (window.innerWidth < 640) {
+      document.getElementById("content-wrapper").classList.remove("relative");
+      sidebar.classList.remove("fixed");
+      document.getElementById("content").style.marginLeft = `0px`;
+    } else {
+      sidebar.classList.add("fixed");
+      document.getElementById("content-wrapper").classList.add("relative");
+      document.getElementById("content").style.marginLeft = `${
+        sidebar.getBoundingClientRect().width
+      }px`;
+      document.getElementById("overlay").classList.add("hidden");
+    }
+  }
+
+  window.addEventListener("resize", contentWraper);
+  contentWraper();
+  contentNavbar();
+</script>

@@ -1,6 +1,7 @@
 __pycache__
 template/node_modules
 node_modules
+flask_session
 
 *.pyc
 

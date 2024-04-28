@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dashboard</title>
+    {% include 'assets.html' %}
+  </head>
+  <body class="font-['Switzer'] relative min-h-full bg-white">
+    <!-- Navbar -->
+    {% include 'navbar.html' %}
+    <!-- End Navbar -->
+
+    <!--
+      transparant overlay ketika sidebar aktif
+    -->
+    <div
+      id="overlay"
+      class="fixed inset-0 bg-black/50 z-30 w-full h-full t-0 hidden"
+      aria-hidden="true"
+      tabindex="-1"
+      onclick="handleSidebar()"
+    ></div>
+
+    <div id="content-wrapper" class="relative">
+      <!-- Sidebar -->
+      {% include 'sidebar.html' %}
+      <!-- End Sidebar -->
+
+      <!-- content -->
+      <div id="content" class="z-10 py-10 px-12">
+        <div class="max-w-screen-xl m-auto container flex flex-col gap-6">
+          <div class="grid grid-cols-1 md:grid-cols-2">
+            <div>
+              <h1 class="text-3xl font-bold leading-loose">Prediksi pakan</h1>
+              <p>Masukan detail form</p>
+            </div>
+            <div class="shadow rounded-lg px-4 py-6">
+              <form action="/result" method="post" class="flex flex-col gap-2">
+                <input
+                  type="number"
+                  name="start_day"
+                  placeholder="Hari ini ke"
+                  class="py-2 px-3 outline-none border rounded-md"
+                />
+                <input
+                  type="number"
+                  name="days"
+                  placeholder="Prediksi hari depan (Max 35 hari)"
+                  class="py-2 px-3 outline-none border rounded-md"
+                />
+                <div class="flex flex-col gap-3 mt-2">
+                  <label class="px-3 font-semibold" for="model"
+                    >Pilih model</label
+                  >
+                  <select
+                    name="model"
+                    id="model"
+                    class="py-2 px-3 outline-none border rounded-md"
+                  >
+                    <option value="1">Model 1</option>
+                    <option value="2">Model 2</option>
+                    <option value="3">Model 3</option>
+                    <option value="all">Semua model</option>
+                  </select>
+                </div>
+
+                <div class="mt-2">
+                  <button
+                    class="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
+                  >
+                    Cek
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- end content -->
+    </div>
+
+    <!-- script and footer -->
+    {% include 'footer.html' %}
+  </body>
+</html>
