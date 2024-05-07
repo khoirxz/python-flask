@@ -21,7 +21,7 @@ def user():
         return render_template('auth/login.html', status='error')
     
     data = get_all()
-    return render_template('user/index.html', title='User', data=data)
+    return render_template('user/index.html', title='User', data=data, verif=verif)
     
 # Blueprint menampilkan form user
 @user_bp.route('/form-user')

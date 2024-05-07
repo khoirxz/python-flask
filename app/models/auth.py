@@ -42,9 +42,18 @@ def login_user(username, password):
 
 def verify_user(username):
     """Verify user by decrypting the username"""
-    try:
-        
-        username = Fernet(Config.SECRET_KEY.encode('utf-8')).decrypt(username).decode('utf-8')
-        return {'status': 'success', 'message': 'Username valid', 'username': username}
-    except:
-        return {'status': 'error', 'message': 'Username tidak valid'}
+    with mysql.connection.cursor() as cur:
+        try:
+            
+            username = Fernet(Config.SECRET_KEY.encode('utf-8')).decrypt(username).decode('utf-8')
+            # find username
+            cur.execute("SELECT * FROM user WHERE username = %s", (username,))
+            result = cur.fetchone()
+
+            if not result:
+                return {'status': 'error', 'message': 'Username tidak valid'}
+
+            return {'status': 'success', 'message': 'Username valid', 'username': result['username']}
+        except:
+            return {'status': 'error', 'message': 'Username tidak valid'}
+

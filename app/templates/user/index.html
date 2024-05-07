@@ -81,8 +81,8 @@
                       </a>
 
                       <a
-                        href="/delete-user/{{ item['id'] }}"
-                        class="text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-3 py-2 text-center"
+                        href="{{ item['username'] != verif['username'] and '/delete-user/' + item['id'] or '#' }}"
+                        class="text-white {{ item['username'] != verif['username'] and 'bg-red-700 cursor-pointer hover:bg-red-800' or 'bg-red-500 cursor-not-allowed opacity-50'}} focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-3 py-2 text-center"
                         >Delete</a
                       >
                     </div>
