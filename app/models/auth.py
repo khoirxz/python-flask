@@ -2,6 +2,7 @@
 
 from flask_mysqldb import MySQL
 from cryptography.fernet import Fernet
+from config import Config
 
 mysql = MySQL()
 
@@ -10,8 +11,7 @@ def signup_user(email, username, password):
     with mysql.connection.cursor() as cur:
 
         # Enkripsi password
-        token = 'Dsw0UkKz2eNsFVPlo2u12F5EsfnhONa9pOhZbbBGTdM='
-        encrypted_password = Fernet(token.encode('utf-8')).encrypt(password.encode('utf-8'))
+        encrypted_password = Fernet(Config.SECRET_KEY.encode('utf-8')).encrypt(password.encode('utf-8'))
 
         # check jika username sudah ada
         cur.execute("SELECT id FROM user WHERE username = %s", (username,))
@@ -32,21 +32,19 @@ def login_user(username, password):
         cur.execute("SELECT * FROM user WHERE username = %s", (username,))
         user = cur.fetchone()
 
-        token = 'Dsw0UkKz2eNsFVPlo2u12F5EsfnhONa9pOhZbbBGTdM='
-
-        decripted_password = Fernet(token.encode('utf-8')).decrypt(user['password']).decode('utf-8')
-        print(Fernet(token.encode('utf-8')).encrypt(user['username'].encode('utf-8'))) 
+        decripted_password = Fernet(Config.SECRET_KEY.encode('utf-8')).decrypt(user['password']).decode('utf-8')
+        print(Fernet(Config.SECRET_KEY.encode('utf-8')).encrypt(user['username'].encode('utf-8'))) 
 
         if user and decripted_password == password:
-            return {'status': 'success', 'message': 'Login berhasil', 'user': Fernet(token.encode('utf-8')).encrypt(user['username'].encode('utf-8'))}
+            return {'status': 'success', 'message': 'Login berhasil', 'user': Fernet(Config.SECRET_KEY.encode('utf-8')).encrypt(user['username'].encode('utf-8'))}
         else:
             return {'status': 'error', 'message': 'Email atau password salah'}
 
 def verify_user(username):
     """Verify user by decrypting the username"""
     try:
-        token = 'Dsw0UkKz2eNsFVPlo2u12F5EsfnhONa9pOhZbbBGTdM='
-        username = Fernet(token.encode('utf-8')).decrypt(username).decode('utf-8')
+        
+        username = Fernet(Config.SECRET_KEY.encode('utf-8')).decrypt(username).decode('utf-8')
         return {'status': 'success', 'message': 'Username valid', 'username': username}
     except:
         return {'status': 'error', 'message': 'Username tidak valid'}

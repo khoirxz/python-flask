@@ -21,6 +21,7 @@
               type="text"
               placeholder="jhonDoe"
               class="py-2 px-3 outline-none border rounded-md"
+              required
             />
           </div>
           <div class="flex flex-col gap-1">
@@ -31,6 +32,7 @@
               type="text"
               placeholder="jhondoe@mail.com"
               class="py-2 px-3 outline-none border rounded-md"
+              required
             />
           </div>
           <div class="flex flex-col gap-1">
@@ -41,11 +43,13 @@
               type="password"
               placeholder="********"
               class="py-2 px-3 outline-none border rounded-md"
+              required
+              minlength="5"
             />
           </div>
           <div class="flex flex-col gap-1">
             <label for="confirmPassword" class="text-gray-500"
-              >Komfirmasi Password</label
+              >Konfirmasi Password</label
             >
             <input
               id="confirmPassword"
@@ -53,8 +57,22 @@
               type="password"
               placeholder="********"
               class="py-2 px-3 outline-none border rounded-md"
+              required
             />
           </div>
+          {% if status is defined and status['status'] == 'success' %}
+          <div class="p-3 rounded-lg text-center">
+            <p class="text-green-500">
+              {{status['message'] if status is defined else ''}}
+            </p>
+          </div>
+          {% endif %} {% if status is defined and status['status'] == 'error' %}
+          <div class="p-3 rounded-lg text-center">
+            <p class="text-red-500">
+              {{status['message'] if status is defined else ''}}
+            </p>
+          </div>
+          {% endif %}
           <button class="py-2 px-3 bg-sky-500 text-white rounded-md">
             Daftar
           </button>

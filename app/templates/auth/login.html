@@ -33,6 +33,13 @@
               class="py-2 px-3 outline-none border rounded-md"
             />
           </div>
+          {% if status is defined and status['status'] == 'error' %}
+          <div class="p-3 rounded-lg text-center">
+            <p class="text-red-500">
+              {{status['message'] if status is defined else ''}}
+            </p>
+          </div>
+          {% endif %}
           <button class="py-2 px-3 bg-sky-500 text-white rounded-md">
             Login
           </button>

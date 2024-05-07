@@ -27,7 +27,7 @@ def login():
 
         if data and 'status' in data and data['status'] != 'success':
             
-            return render_template('auth/login.html', status='error')
+            return render_template('auth/login.html', status={'status': 'error', 'message': 'Username atau password salah'})
 
         # jika data ditemukan makan informasi data akan disimpan pada session storage
 
@@ -59,14 +59,16 @@ def signup():
 
         # check if password same as confirm password
         if password != confirmPassword:
-            return render_template('auth/register.html', status='error')
+            return render_template('auth/register.html', status={"status": "error", "message": "Password harus sama"})
 
         data = signup_user(email=email, username=username, password=password)
 
         if data and 'status' in data and data['status'] != 'success':
-            return render_template('auth/register.html', status='error')
+            return render_template('auth/register.html', status={'status': 'error', 'message': 'Username sudah ada'})
+        elif data and 'status' in data and data['status'] == 'success':
+            return render_template('auth/register.html', status={'status': 'success', 'message': 'Akun berhasil dibuat'})
 
-    return render_template('auth/register.html', status='success')
+    return render_template('auth/register.html')
 
 # Blueprint logout
 @auth_bp.route('/logout')
