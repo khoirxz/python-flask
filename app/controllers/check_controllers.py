@@ -46,4 +46,4 @@ def result():
     predictions, total_predictions, grand_total_prediction, average_total_prediction = get_result(start_day, days, selected_model)
 
     return render_template('check/result.html', predictions=predictions, total_predictions=total_predictions,
-                           grand_total_prediction=grand_total_prediction, average_total_prediction=average_total_prediction)
+                           grand_total_prediction=grand_total_prediction, average_total_prediction=average_total_prediction, day=days)

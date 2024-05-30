@@ -65,8 +65,8 @@
               {% endfor %}
 
               <div class="my-3 flex flex-col gap-3">
+                {% if total_predictions|length > 1 %}
                 <div>
-                  <p>Total prediksi model 1:</p>
                   <ul class="list-decimal list-inside">
                     {% for model, total_prediction in total_predictions.items()
                     %}
@@ -76,9 +76,10 @@
                     {% endfor %}
                   </ul>
                 </div>
+                {% endif %}
 
                 <p>
-                  Rata-rata total prediksi keseluruahan :
+                  Rata-rata prediksi keseluruahan ({{ day }} hari) :
                   <span class="font-semibold text-yellow-500"
                     >{{ grand_total_prediction }} kg</span
                   >
